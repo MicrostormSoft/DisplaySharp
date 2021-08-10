@@ -46,7 +46,8 @@ static void Main(string[] args)
     var canvas = new Canvas("/dev/dri/card0");//open your display device
     Bitmap picture = (Bitmap)Bitmap.FromFile("test.png");//read a picture as bitmap
     canvas.DrawBitmap(picture);//draw it onto the screen
-    canvas.DrawRectangle(new Rectangle(100, 100, 50, 50), Color.Blue, fill: false);//draw a rectangle wire frame at Point(100,100) Size(50,50) in blue
+    canvas.DrawRectangle(new Rectangle(100, 100, 50, 50), Color.Blue, fill: false);
+      //draw a rectangle wire frame at Point(100,100) Size(50,50) in blue
     Console.ReadLine();
     canvas.Clear(Color.White);//clear the screen
     Console.ReadLine();
