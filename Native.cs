@@ -37,6 +37,8 @@ namespace DisplaySharp
         [DllImport("libdisplaysharp")]
         public static extern void fill_bitmap(IntPtr handler, IntPtr bitmap, uint size);
         [DllImport("libdisplaysharp")]
+        public static extern void fill_bitmap_area(IntPtr handler, IntPtr bitmap, UInt32 x1, UInt32 y1, UInt32 x2, UInt32 y2);
+        [DllImport("libdisplaysharp")]
         public static extern UInt32 background(IntPtr handler,uint color);
         [DllImport("libdisplaysharp")]
         public static extern UInt32 height(IntPtr handler);

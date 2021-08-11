@@ -27,22 +27,29 @@ namespace DisplaySharp
 
         public void DrawBitmap(Bitmap map)
         {
-            map = ResizeImage(map,Width,Height);
+            map = ResizeImage(map, Width, Height);
             var items = map.LockBits(new Rectangle(0, 0, Width, Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Native.fill_bitmap(Handler, items.Scan0, (uint)(Width * Height * 4));
         }
 
-        public void DrawPixel(Point loc,Color color)
+        public void DrawBitmap(Bitmap map, Rectangle area)
+        {
+            map = ResizeImage(map, Width, Height);
+            var items = map.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Native.fill_bitmap_area(Handler, items.Scan0, (uint)area.X, (uint)area.Y, (uint)area.Right, (uint)area.Bottom);
+        }
+
+        public void DrawPixel(Point loc, Color color)
         {
             Native.draw_pixel(Handler, (uint)loc.X, (uint)loc.Y, (uint)color.ToArgb());
         }
 
-        public void DrawLine(Point start,Point end,Color color)
+        public void DrawLine(Point start, Point end, Color color)
         {
             Native.draw_line(Handler, (uint)start.X, (uint)start.Y, (uint)end.X, (uint)end.Y, (uint)color.ToArgb());
         }
 
-        public void DrawRectangle(Rectangle rect,Color color,bool fill = false)
+        public void DrawRectangle(Rectangle rect, Color color, bool fill = false)
         {
             if (fill)
             {
@@ -54,7 +61,7 @@ namespace DisplaySharp
             }
         }
 
-        public void DrawCircle(Point center,int r,Color color,bool fill = false)
+        public void DrawCircle(Point center, int r, Color color, bool fill = false)
         {
             if (fill)
             {

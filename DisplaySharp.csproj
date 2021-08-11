@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.0.2</Version>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <Authors>developer_ken</Authors>
+    <Company>Microstorm Group</Company>
+    <PackageProjectUrl>https://github.com/MicrostormSoft/DisplaySharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MicrostormSoft/DisplaySharp</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
