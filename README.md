@@ -2,6 +2,8 @@
 Minimal display lib for C# based on libdrm  
 基于libdrm的精简C#图形库  
 
+[![NuGet version (DisplaySharp)](https://img.shields.io/nuget/v/DisplaySharp.svg?style=flat)](https://www.nuget.org/packages/DisplaySharp/)
+
 ## What is this 是什么
 This is a graphic lib for C# to do basic graphic things, like drawing rectangles or display a Bitmap on screen.  
 这是为C#设计的基础图形库，比如说可以绘制矩形，或是将一张Bitmap显示在屏幕上。
