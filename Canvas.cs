@@ -27,18 +27,21 @@ namespace DisplaySharp
 
         public void DrawBitmap(Bitmap map)
         {
-            var rmap = ResizeImage(map, Width, Height);
-            var items = rmap.LockBits(new Rectangle(0, 0, Width, Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            Native.fill_bitmap(Handler, items.Scan0, (uint)(Width * Height * 4));
-            rmap.Dispose();
+            if (map.Width != Width || map.Height != Height)
+                DrawBitmap(map, new Rectangle(new Point(0, 0), map.Size));
+            else
+            {
+                var items = map.LockBits(new Rectangle(0, 0, Width, Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                Native.fill_bitmap(Handler, items.Scan0, (uint)(Width * Height * 4));
+                map.UnlockBits(items);
+            }
         }
 
         public void DrawBitmap(Bitmap map, Rectangle area)
         {
-            var rmap = ResizeImage(map, area.Width, area.Height);
-            var items = rmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var items = map.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Native.fill_bitmap_area(Handler, items.Scan0, (uint)area.X, (uint)area.Y, (uint)area.Right, (uint)area.Bottom);
-            rmap.Dispose();
+            map.UnlockBits(items);
         }
 
         public void DrawPixel(Point loc, Color color)
@@ -80,8 +83,11 @@ namespace DisplaySharp
             Native.background(Handler, (uint)background.ToArgb());
         }
 
+        [Obsolete("This function creates new Bitmap object and might cause memory leak.",false)]
         public static Bitmap ResizeImage(Bitmap bmp, int newW, int newH)
         {
+            if (bmp.Width == newW && bmp.Height == newH)
+                return new Bitmap(bmp);
             try
             {
                 Bitmap b = new Bitmap(newW, newH);
