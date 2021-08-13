@@ -27,18 +27,18 @@ namespace DisplaySharp
 
         public void DrawBitmap(Bitmap map)
         {
-            map = ResizeImage(map, Width, Height);
-            var items = map.LockBits(new Rectangle(0, 0, Width, Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var rmap = ResizeImage(map, Width, Height);
+            var items = rmap.LockBits(new Rectangle(0, 0, Width, Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Native.fill_bitmap(Handler, items.Scan0, (uint)(Width * Height * 4));
-            map.Dispose();
+            rmap.Dispose();
         }
 
         public void DrawBitmap(Bitmap map, Rectangle area)
         {
-            map = ResizeImage(map, area.Width, area.Height);
-            var items = map.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var rmap = ResizeImage(map, area.Width, area.Height);
+            var items = rmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Native.fill_bitmap_area(Handler, items.Scan0, (uint)area.X, (uint)area.Y, (uint)area.Right, (uint)area.Bottom);
-            map.Dispose();
+            rmap.Dispose();
         }
 
         public void DrawPixel(Point loc, Color color)
